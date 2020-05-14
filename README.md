@@ -8,6 +8,10 @@ CRUD simples da entidade pessoa:
 
 ## Telas
 
+Listagem Adição e Remoção de pessoas
+
+![alt text](https://ctrlv.cz/shots/2020/05/14/E9pf.png)
+
 # Ferramentas
 
 - **Axios** Lib para requisições http;
