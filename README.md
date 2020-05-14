@@ -1,4 +1,4 @@
-# Projeto CRUD API Simples .NET Core 3, C
+# Projeto CRUD UI Simples Vue.js, CoreUI, Axios
 
 _Este projeto é para fins didáticos e avaliativos_
 
