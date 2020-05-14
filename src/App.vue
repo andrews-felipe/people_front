@@ -18,11 +18,17 @@
 
           <div class="col">
             <button
+              v-show="!flag_edit"
+              @click="addPeople()"
               type="button"
               class="btn btn-brand btn-xing btn-block"
-              data-toggle="modal"
-              data-target="#exampleModal"
             >Adicionar</button>
+            <button
+              v-show="flag_edit"
+              @click="putPeople()"
+              type="button"
+              class="btn btn-brand btn-xing btn-block"
+            >Salvar</button>
           </div>
         </div>
       </form>
@@ -38,25 +44,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">Andrew</th>
-              <td>99988896</td>
-              <td>mail@google.com</td>
-              <td id="options-table">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-danger">Excluir</button>
-                  <button type="button" class="btn btn-warning">Editar</button>
-                </div>
-              </td>
-            </tr>
             <tr v-for="people in people_list" v-bind:key="people.id">
               <th scope="row">{{people.name}}</th>
               <td>{{people.phone}}</td>
               <td>{{people.email}}</td>
               <td id="options-table">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" class="btn btn-danger">Excluir</button>
-                  <button type="button" class="btn btn-warning">Editar</button>
+                  <button
+                    @click="removePeople(people.id)"
+                    type="button"
+                    class="btn btn-danger"
+                  >Excluir</button>
+                  <button @click="goToEdit(people)" type="button" class="btn btn-warning">Editar</button>
                 </div>
               </td>
             </tr>
@@ -74,7 +73,7 @@ import http from "./services/http";
 export default {
   name: "App",
   data: () => ({
-    status: true,
+    flag_edit: false,
     people_list: [],
     // campos do form
     id: null,
@@ -105,6 +104,7 @@ export default {
           alert("Usuário Alterado com seucesso!");
           this.getAllPeople();
           this.clearFields();
+          this.flag_edit = false;
         });
       }
     },
@@ -125,6 +125,8 @@ export default {
         (this.name = object.name),
         (this.phone = object.phone),
         (this.email = object.email);
+
+      this.flag_edit = true;
     },
 
     clearFields() {
